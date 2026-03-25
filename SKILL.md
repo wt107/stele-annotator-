@@ -9,7 +9,40 @@ compatibility: Python 3.8+, python-docx, chardet, requests
 
 # 碑帖学习伴侣 stele-companion v1.4
 
-合并自 stele-annotator (v4.2) × stele-vertical-layout (v1.1)
+## AI 执行指南
+
+### 入口脚本
+
+```
+scripts/stele_companion.py
+```
+
+### 执行命令格式
+
+```bash
+# 完整流程（推荐）
+python scripts/stele_companion.py all <碑文文件> --dict <字典文件> --output-vertical <输出路径>
+
+# 构建字典
+python scripts/stele_companion.py build-dict <碑文文件> -o <字典输出路径>
+
+# 标注
+python scripts/stele_companion.py annotate <碑文文件> --dict <字典文件> -o <标注JSON输出路径>
+
+# 渲染HTML
+python scripts/stele_companion.py render --annotated <标注JSON> --format vertical -o <HTML输出路径>
+```
+
+### 触发条件
+
+当用户请求以下任务时，加载此技能：
+- 构建碑文字典
+- 碑文标注/对照
+- 多字典彩色对照
+- 生成横版/竖版HTML
+- 碑帖打印版输出
+
+---
 
 ## 核心定位
 

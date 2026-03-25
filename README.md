@@ -1,90 +1,52 @@
 # 碑帖学习伴侣 Stele Companion
 
-碑文字典对照 + 标注排版工具，支持多字典彩色对照、简繁转换、横版/竖版HTML输出、A4打印优化、自动获取权威碑帖原文。
+> 碑文字典对照 + 标注排版工具，支持多字典彩色对照、简繁转换、横版/竖版HTML输出、A4打印优化。
 
-## 功能特性
+## 成果展示
 
-- **字典构建** - 从标准碑帖文档建立字-编号字典（如 1-1, 1-2...）
-- **多字典对照** - 同时使用多个字典标注，颜色区分
-- **共有字标识** - 多字典共有字深紫色突出显示
-- **简繁转换** - 内置500+常用字映射，无外部依赖
-- **横版/竖版** - 双输出格式，A4打印优化
-- **自动获取原文** - `--fetch` 从权威来源获取碑帖原文
-- **三种字号** - small/medium/large 适配不同需求
+### 输入
 
-## 使用前准备
+- 碑帖原文文档（.doc / .docx / .txt）
+- 或使用 `--fetch` 自动获取权威原文
 
-本仓库仅包含工具代码，不包含碑帖原文数据。使用前请准备：
+### 输出
 
-1. **碑帖文档** - `.doc` / `.docx` / `.txt` 格式的碑帖原文文件
-2. **或使用 `--fetch`** - 自动从网络获取权威碑帖原文（支持张迁碑、肥致碑、鲜于璜碑等）
-
-示例命令中的文件名（如 `肥致碑.doc`、`张迁碑_dict.json`）为演示用途，请替换为你自己的文件。
-
-## 安装
-
-```bash
-pip install python-docx chardet requests
-```
-
-## 快速开始
-
-```bash
-# 一键完成（推荐）
-python stele_companion.py all 肥致碑.doc \
-    --dict 张迁碑_dict.json \
-    --output-horizontal 肥致碑_横版.html \
-    --output-vertical 肥致碑_竖版.html \
-    --font-size medium \
-    --theme classic
-
-# 自动获取权威原文
-python stele_companion.py all 肥致碑.doc \
-    --dict 张迁碑_dict.json \
-    --fetch \
-    --output-vertical 肥致碑_竖版.html
-
-# 构建字典
-python stele_companion.py build-dict 张迁碑.docx \
-    -o 张迁碑_dict.json \
-    --start-marker "君讳迁"
-
-# 多字典标注
-python stele_companion.py all 肥致碑.doc \
-    --dict 张迁碑_dict.json,鲜于璜碑_dict.json \
-    --output-vertical 肥致碑_多字典.html
-```
-
-## 文件结构
-
-```
-stele-annotator-/
-├── SKILL.md                    # 详细文档
-├── README.md                   # 本文件
-├── requirements.txt            # 依赖
-└── scripts/
-    └── stele_companion.py      # 主脚本
-```
-
-## 命令
-
-| 命令 | 说明 |
+| 输出类型 | 说明 |
 |:---|:---|
-| `build-dict` | 从标准文档构建字典 |
-| `annotate` | 文本比对标注 |
-| `render` | 生成 HTML（横版/竖版） |
-| `all` | 完整流程（推荐） |
+| **字典 JSON** | 字-编号映射（如 `"君": "1-1"`） |
+| **横版 HTML** | 现代阅读顺序，A4 纵向打印 |
+| **竖版 HTML** | 古文阅读顺序，A4 横向打印 |
 
-## 文档
+### 效果
 
-详细使用说明请参阅 [SKILL.md](./SKILL.md)
+- 多字典对照：不同字典用不同颜色标识
+- 共有字突出：多字典共有字深紫色显示
+- 打印优化：字号自适应、分页合理
+- 标注清晰：字在上方、编号在正下方
 
-## 版本历史
+## 典型工作流
 
-### v1.4 (2026-03-24)
-- 新增 `--fetch` 自动获取碑帖原文
-- 修复 XSS 安全漏洞
-- 增强健壮性
+```
+碑帖文档 ──→ 构建字典 ──→ 标注对照 ──→ 输出HTML
+                        ↓
+                  多字典彩色对照
+```
+
+## 示例输出
+
+生成的竖版 HTML 效果：
+- 每页 20 列 × 19 字
+- 字号可选：small(22px) / medium(28px) / large(34px)
+- 双主题：classic（古典金） / elegant（典雅红）
+
+## 技术说明
+
+| 项目 | 内容 |
+|:---|:---|
+| 语言 | Python 3.8+ |
+| 依赖 | python-docx, chardet, requests |
+| 入口脚本 | `scripts/stele_companion.py` |
+| 详细文档 | [SKILL.md](./SKILL.md) |
 
 ## License
 

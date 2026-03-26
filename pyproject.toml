@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "stele-companion"
+version = "2.0.0"
+description = "碑帖学习伴侣 - 碑文字典对照 + 标注排版工具"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+authors = [
+    {name = "wt107"}
+]
+keywords = ["stele", "calligraphy", "chinese", "annotation"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Text Processing :: Markup :: HTML",
+    "Topic :: Artistic Software",
+]
+dependencies = [
+    "python-docx>=0.8.10",
+    "chardet>=3.0.4",
+    "requests>=2.25.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+]
+windows = [
+    "pywin32>=300",
+]
+
+[project.scripts]
+stele-companion = "stele_companion.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/wt107/stele-annotator-"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["stele_companion*"]

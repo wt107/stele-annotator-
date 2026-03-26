@@ -1,53 +1,35 @@
-# 碑帖学习伴侣 Stele Companion
+# 碑帖学习伴侣 stele-companion
 
-> 碑文字典对照 + 标注排版工具，支持多字典彩色对照、简繁转换、横版/竖版HTML输出、A4打印优化。
+碑文字典对照 + 标注排版工具，支持多字典彩色对照、简繁转换、横版/竖版HTML输出、A4打印优化。
 
-## 成果展示
+## 安装
 
-### 输入
-
-- 碑帖原文文档（.doc / .docx / .txt）
-- 或使用 `--fetch` 自动获取权威原文
-
-### 输出
-
-| 输出类型 | 说明 |
-|:---|:---|
-| **字典 JSON** | 字-编号映射（如 `"君": "1-1"`） |
-| **横版 HTML** | 现代阅读顺序，A4 纵向打印 |
-| **竖版 HTML** | 古文阅读顺序，A4 横向打印 |
-
-### 效果
-
-- 多字典对照：不同字典用不同颜色标识
-- 共有字突出：多字典共有字深紫色显示
-- 打印优化：字号自适应、分页合理
-- 标注清晰：字在上方、编号在正下方
-
-## 典型工作流
-
-```
-碑帖文档 ──→ 构建字典 ──→ 标注对照 ──→ 输出HTML
-                        ↓
-                  多字典彩色对照
+```bash
+pip install stele-companion
 ```
 
-## 示例输出
+## 快速开始
 
-生成的竖版 HTML 效果：
-- 每页 20 列 × 19 字
-- 字号可选：small(22px) / medium(28px) / large(34px)
-- 双主题：classic（古典金） / elegant（典雅红）
+```bash
+# 完整流程（推荐）
+stele-companion all 碑文.doc \
+    --dict 字典.json \
+    --output-horizontal 横版.html \
+    --output-vertical 竖版.html \
+    --start-marker "正文起始标记"
+```
 
-## 技术说明
+## 功能
 
-| 项目 | 内容 |
-|:---|:---|
-| 语言 | Python 3.8+ |
-| 依赖 | python-docx, chardet, requests |
-| 入口脚本 | `scripts/stele_companion.py` |
-| 详细文档 | [SKILL.md](./SKILL.md) |
+- **build-dict**: 从标准碑帖文档建立字-编号字典
+- **annotate**: 多字典彩色对照标注
+- **render**: 横版/竖版 HTML 输出（A4 打印优化）
+- **fetch**: 自动获取权威碑帖原文
 
-## License
+## 文档
 
-MIT
+详细使用说明请参阅 [SKILL.md](docs/SKILL.md)
+
+## 许可证
+
+MIT License

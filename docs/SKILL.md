@@ -36,6 +36,49 @@ compatibility: Python 3.8+, python-docx, chardet, requests
 
 ---
 
+## AI 使用指南
+
+### 专用参数
+
+| 参数 | 说明 | 使用场景 |
+|:---|:---|:---|
+| `--json` | 输出 JSON 格式结果 | AI 解析输出 |
+| `--dry-run` | 预览操作，不实际执行 | 验证路径和参数 |
+
+### AI 推荐工作流
+
+```bash
+# 步骤 1: 验证操作（dry-run）
+stele-companion all 肥致碑.doc \
+    --dict 张迁碑_dict.json \
+    --output-horizontal 肥致碑_横版.html \
+    --dry-run \
+    --json
+
+# 步骤 2: 实际执行
+stele-companion all 肥致碑.doc \
+    --dict 张迁碑_dict.json \
+    --output-horizontal 肥致碑_横版.html \
+    --output-vertical 肥致碑_竖版.html \
+    --json
+```
+
+### JSON 输出格式
+
+```json
+{
+  "success": true,
+  "command": "all",
+  "inputs": {"input": "肥致碑.doc", "dict": "张迁碑_dict.json"},
+  "outputs": {"horizontal": "肥致碑_横版.html", "vertical": "肥致碑_竖版.html"},
+  "messages": ["处理完成"],
+  "errors": [],
+  "warnings": []
+}
+```
+
+---
+
 ## 快速开始
 
 ### 推荐用法：`all` 一步完成

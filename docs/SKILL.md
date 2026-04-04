@@ -9,7 +9,7 @@ compatibility: Python 3.8+, python-docx, chardet, requests
 
 # 碑帖学习伴侣 stele-companion v2.0
 
-合并自 stele-annotator (v4.2) × stele-vertical-layout (v1.1)
+合并自 stele-companion (v4.2) × stele-vertical-layout (v1.1)
 
 ## 核心定位
 
@@ -488,7 +488,7 @@ pip install pywin32    # Windows .doc
 - 打印时 `.page` padding 独立优化（横版 10mm、竖版 6-10mm）
 
 ### v1.0
-- 合并 stele-annotator (v4.2) + stele-vertical-layout (v1.1)
+- 合并 stele-companion (v4.2) + stele-vertical-layout (v1.1)
 - 统一输出格式：字-标号对照，标号在字正下方
 - 支持多字典彩色对照 + 共有字深紫色标识
 - 简繁转换内置（不依赖 opencc）

@@ -44,7 +44,7 @@ windows = [
 stele-companion = "stele_companion.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/wt107/stele-annotator-"
+Homepage = "https://github.com/wt107/stele-companion"
 
 [tool.setuptools.packages.find]
 where = ["."]

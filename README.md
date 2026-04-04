@@ -8,7 +8,11 @@
 pip install stele-companion
 ```
 
-**依赖**: Python 3.8+, 纯 Python 实现，无需 LibreOffice/Word
+**依赖**: Python 3.8+
+
+**可选依赖**（处理 .doc 文件时需要）：
+- Windows: `pip install pywin32` 或安装 Microsoft Word
+- Mac/Linux: `brew install --cask libreoffice` 或 `sudo apt install libreoffice`
 
 ## 快速开始
 
@@ -26,8 +30,8 @@ stele-companion all 碑文.txt \
 | 格式 | 推荐度 | 说明 |
 |:---|:---:|:---|
 | **.txt (UTF-8)** | ⭐⭐⭐ | **强烈推荐**，生僻字支持最好 |
-| **.docx** | ⭐⭐⭐ | 推荐，纯 Python 处理 |
-| **.doc** | ❌ | 不支持，请转换为 .docx 或 .txt |
+| **.docx** | ⭐⭐⭐ | **推荐**，纯 Python 处理 |
+| **.doc** | ⭐⭐ | 支持，需安装 LibreOffice（Mac/Linux）或 Word/pywin32（Windows）|
 
 ## 功能
 

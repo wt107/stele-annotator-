@@ -5,8 +5,8 @@ description: |
   碑文标注、碑帖学习、字典对照、字-标号对照、简繁转换、碑文排版、横版输出、竖版输出、
   标注碑文、碑文字典、学习书法、碑刻对照、多字典对照、碑文打印版、打印临摹、碑帖临摹、字帖打印。
 compatibility: Python 3.8+, python-docx>=0.8.10, chardet>=3.0.4, requests>=2.25.0
-formats: .docx, .txt (推荐UTF-8编码)
-not_supported: .doc (请转换为.docx)
+formats: .txt (推荐), .docx (推荐), .doc (需LibreOffice/Word)
+platform: Windows/Mac/Linux
 ---
 
 # 碑帖学习伴侣 stele-companion v2.0
@@ -137,7 +137,7 @@ stele-companion render \
 
 | 选项 | 必选 | 说明 |
 |:---|:---:|:---|
-| `input` | ✅ | 输入文件（.docx/.txt），推荐 UTF-8 编码的 .txt |
+| `input` | ✅ | 输入文件（.doc/.docx/.txt），推荐 UTF-8 编码的 .txt |
 | `-o, --output` | ✅ | 输出字典文件（.json） |
 | `--start-line N` | | 正文起始行号（1-based） |
 | `--start-marker TEXT` | | 正文起始关键字（与start-line二选一） |
@@ -147,7 +147,7 @@ stele-companion render \
 
 | 选项 | 必选 | 说明 |
 |:---|:---:|:---|
-| `input` | ✅ | 待标注文件（.docx/.txt），推荐 UTF-8 .txt |
+| `input` | ✅ | 待标注文件（.doc/.docx/.txt），推荐 UTF-8 .txt |
 | `--dict` | ✅ | 字典文件（多个用逗号分隔） |
 | `-o, --output` | ✅ | 输出标注数据（.json） |
 | `--start-line N` | | 正文起始行号 |
@@ -186,40 +186,40 @@ stele-companion render \
 
 ### 支持的格式
 
-| 格式 | 支持度 | 说明 |
+| 格式 | 推荐度 | 说明 |
 |:---|:---:|:---|
-| **.txt (UTF-8)** | ⭐⭐⭐ | **强烈推荐**，生僻字支持最好，无依赖 |
-| **.docx** | ⭐⭐⭐ | 推荐，纯 Python 处理，跨平台 |
-| **.doc** | ❌ | **不支持**，请转换为 .docx 或 .txt |
+| **.txt (UTF-8)** | ⭐⭐⭐ | **最推荐**，生僻字支持最好，无外部依赖 |
+| **.docx** | ⭐⭐⭐ | **推荐**，纯 Python 处理，跨平台 |
+| **.doc** | ⭐⭐ | 支持，但需外部工具（Windows: Office/pywin32, Mac/Linux: LibreOffice） |
 
-### 为什么不支持 .doc？
+### 推荐顺序
 
-.doc 是旧版 Word 二进制格式，需要：
-- Windows: 安装 Office 或 pywin32
-- Mac/Linux: 安装 LibreOffice
+**AI 使用建议**：
+1. **优先用 .txt** - 最稳定，无环境依赖，AI 可预测
+2. **其次用 .docx** - 纯 Python 处理，跨平台一致
+3. **最后考虑 .doc** - 功能完整，但需要额外安装（会自动尝试）
 
-这些外部依赖：
-- ❌ 增加安装复杂度
-- ❌ 降低 AI 自动化可靠性
-- ❌ 不同平台行为不一致
+### .doc 文件处理
+
+**自动检测可用方式**（按优先级）：
+1. Windows + Word/pywin32
+2. Mac/Linux + LibreOffice
+3. 失败时提供转换提示
+
+**安装 LibreOffice**（仅当需要处理 .doc 时）：
+- Mac: `brew install --cask libreoffice`
+- Ubuntu: `sudo apt install libreoffice`
+- Windows: 下载安装 https://www.libreoffice.org/
 
 ### 格式转换方法
 
 **方法 1: Word 另存为（推荐）**
-1. 用 Word 打开 .doc 文件
+1. 用 Word 打开文件
 2. 文件 → 另存为
 3. 选择 `.docx` 或 `纯文本(.txt)`
-4. 编码选择 `UTF-8`
 
-**方法 2: Python 代码转换**
-```python
-# 使用本工具自带的转换功能
-from stele_companion.io import convert_to_txt
-convert_to_txt("碑文.docx", "碑文.txt")
-```
-
-**方法 3: 在线转换**
-- https://convertio.co/doc-docx/
+**方法 2: 在线转换**
+- https://convertio.co/doc-txt/
 - https://cloudconvert.com/doc-to-docx
 
 ---

@@ -319,7 +319,7 @@ def _render_horizontal(data, font_size="medium", theme="classic"):
 </div>
 <div class="stats">
 <p><b>来源：</b>{html_mod.escape(data["source"])} | <b>字典：</b>{", ".join(html_mod.escape(d.get("source", p)) for d, p in zip(data.get("dicts", []), data.get("dict_paths", [])))}</p>
-<p><b>总字数：</b>{data["stats"]["total"]} | <b>已匹配：</b>{data["stats"]["matched"]} ({data["stats"]["match_rate"]}){f" | <b>共有字：</b>{data["stats"]["shared_count"]} ({data["stats"]["shared_rate"]})" if data.get("shared_chars") else ""}</p>
+<p><b>总字数：</b>{data['stats']['total']} | <b>已匹配：</b>{data['stats']['matched']} ({data['stats']['match_rate']}){f" | <b>共有字：</b>{data['stats']['shared_count']} ({data['stats']['shared_rate']})" if data.get('shared_chars') else ''}</p>
 </div>
 </body>
 </html>"""
@@ -571,7 +571,7 @@ def _render_vertical(data, font_size="medium", theme="classic"):
 {"".join(page_parts)}
 <div class="stats">
 <p><b>来源：</b>{html_mod.escape(data["source"])} | <b>字典：</b>{", ".join(html_mod.escape(d.get("source", p)) for d, p in zip(data.get("dicts", []), data.get("dict_paths", [])))}</p>
-<p><b>总字数：</b>{data["stats"]["total"]} | <b>已匹配：</b>{data["stats"]["matched"]} ({data["stats"]["match_rate"]}){f" | <b>共有字：</b>{data["stats"]["shared_count"]} ({data["stats"]["shared_rate"]})" if data.get("shared_chars") else ""} | <b>总页数：</b>{len(pages)}</p>
+<p><b>总字数：</b>{data['stats']['total']} | <b>已匹配：</b>{data['stats']['matched']} ({data['stats']['match_rate']}){f" | <b>共有字：</b>{data['stats']['shared_count']} ({data['stats']['shared_rate']})" if data.get('shared_chars') else ''} | <b>总页数：</b>{len(pages)}</p>
 </div>
 </body>
 </html>"""

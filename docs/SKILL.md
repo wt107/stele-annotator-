@@ -4,7 +4,9 @@ description: |
   碑帖学习伴侣 v2.0。碑文字典对照 + 标注排版工具，支持多字典彩色对照、简繁转换、横版/竖版HTML输出、A4打印优化、自动获取权威碑帖原文。触发词：
   碑文标注、碑帖学习、字典对照、字-标号对照、简繁转换、碑文排版、横版输出、竖版输出、
   标注碑文、碑文字典、学习书法、碑刻对照、多字典对照、碑文打印版、打印临摹、碑帖临摹、字帖打印。
-compatibility: Python 3.8+, python-docx, chardet, requests
+compatibility: Python 3.8+, python-docx>=0.8.10, chardet>=3.0.4, requests>=2.25.0
+formats: .docx, .txt (推荐UTF-8编码)
+not_supported: .doc (请转换为.docx)
 ---
 
 # 碑帖学习伴侣 stele-companion v2.0
@@ -49,14 +51,14 @@ compatibility: Python 3.8+, python-docx, chardet, requests
 
 ```bash
 # 步骤 1: 验证操作（dry-run）
-stele-companion all 肥致碑.doc \
+stele-companion all 肥致碑.txt \
     --dict 张迁碑_dict.json \
     --output-horizontal 肥致碑_横版.html \
     --dry-run \
     --json
 
 # 步骤 2: 实际执行
-stele-companion all 肥致碑.doc \
+stele-companion all 肥致碑.txt \
     --dict 张迁碑_dict.json \
     --output-horizontal 肥致碑_横版.html \
     --output-vertical 肥致碑_竖版.html \
@@ -84,7 +86,7 @@ stele-companion all 肥致碑.doc \
 ### 推荐用法：`all` 一步完成
 
 ```bash
-stele-companion all 肥致碑.doc \
+stele-companion all 肥致碑.txt \
     --dict 张迁碑_dict.json \
     --output-horizontal 肥致碑_横版.html \
     --output-vertical 肥致碑_竖版.html \
@@ -96,7 +98,7 @@ stele-companion all 肥致碑.doc \
 ### 第一步：建字典
 
 ```bash
-stele-companion build-dict 张迁碑.docx \
+stele-companion build-dict 张迁碑.txt \
     -o zhangqian_dict.json \
     --start-marker "君讳迁"
 ```
@@ -104,7 +106,7 @@ stele-companion build-dict 张迁碑.docx \
 ### 第二步：标注文本
 
 ```bash
-stele-companion annotate 肥致碑.doc \
+stele-companion annotate 肥致碑.txt \
     --dict zhangqian_dict.json \
     -o annotated.json
 ```
@@ -135,7 +137,7 @@ stele-companion render \
 
 | 选项 | 必选 | 说明 |
 |:---|:---:|:---|
-| `input` | ✅ | 输入文件（.doc/.docx/.txt） |
+| `input` | ✅ | 输入文件（.docx/.txt），推荐 UTF-8 编码的 .txt |
 | `-o, --output` | ✅ | 输出字典文件（.json） |
 | `--start-line N` | | 正文起始行号（1-based） |
 | `--start-marker TEXT` | | 正文起始关键字（与start-line二选一） |
@@ -145,7 +147,7 @@ stele-companion render \
 
 | 选项 | 必选 | 说明 |
 |:---|:---:|:---|
-| `input` | ✅ | 待标注文件（.doc/.docx/.txt） |
+| `input` | ✅ | 待标注文件（.docx/.txt），推荐 UTF-8 .txt |
 | `--dict` | ✅ | 字典文件（多个用逗号分隔） |
 | `-o, --output` | ✅ | 输出标注数据（.json） |
 | `--start-line N` | | 正文起始行号 |
@@ -180,12 +182,54 @@ stele-companion render \
 
 ---
 
+## 文件格式说明
+
+### 支持的格式
+
+| 格式 | 支持度 | 说明 |
+|:---|:---:|:---|
+| **.txt (UTF-8)** | ⭐⭐⭐ | **强烈推荐**，生僻字支持最好，无依赖 |
+| **.docx** | ⭐⭐⭐ | 推荐，纯 Python 处理，跨平台 |
+| **.doc** | ❌ | **不支持**，请转换为 .docx 或 .txt |
+
+### 为什么不支持 .doc？
+
+.doc 是旧版 Word 二进制格式，需要：
+- Windows: 安装 Office 或 pywin32
+- Mac/Linux: 安装 LibreOffice
+
+这些外部依赖：
+- ❌ 增加安装复杂度
+- ❌ 降低 AI 自动化可靠性
+- ❌ 不同平台行为不一致
+
+### 格式转换方法
+
+**方法 1: Word 另存为（推荐）**
+1. 用 Word 打开 .doc 文件
+2. 文件 → 另存为
+3. 选择 `.docx` 或 `纯文本(.txt)`
+4. 编码选择 `UTF-8`
+
+**方法 2: Python 代码转换**
+```python
+# 使用本工具自带的转换功能
+from stele_companion.io import convert_to_txt
+convert_to_txt("碑文.docx", "碑文.txt")
+```
+
+**方法 3: 在线转换**
+- https://convertio.co/doc-docx/
+- https://cloudconvert.com/doc-to-docx
+
+---
+
 ## 多字典彩色对照
 
 多个字典用逗号分隔，自动分配不同颜色：
 
 ```bash
-stele-companion all 肥致碑.doc \
+stele-companion all 肥致碑.txt \
     --dict 张迁碑_dict.json,鲜于璜碑_dict.json \
     --output-horizontal 肥致碑_多字典.html
 ```
@@ -211,13 +255,13 @@ stele-companion all 肥致碑.doc \
 
 ```bash
 # 自动获取权威原文（推荐）
-stele-companion all 肥致碑.doc \
+stele-companion all 肥致碑.txt \
     --dict 张迁碑_dict.json \
     --fetch \
     --output-horizontal 肥致碑_横版.html
 
 # 指定数据源
-stele-companion all 肥致碑.doc \
+stele-companion all 肥致碑.txt \
     --dict 张迁碑_dict.json \
     --fetch --source wikisource \
     --output-horizontal 肥致碑_横版.html
@@ -357,7 +401,7 @@ stele-companion all 肥致碑.doc \
 启用 `--convert` 后，简体字可匹配繁体字典，繁体字可匹配简体字典：
 
 ```bash
-stele-companion all 肥致碑.doc \
+stele-companion all 肥致碑.txt \
     --dict 张迁碑_dict.json \
     --convert \
     -o 肥致碑_标注版.html

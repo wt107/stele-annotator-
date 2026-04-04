@@ -3,8 +3,6 @@ python-docx>=0.8.10
 chardet>=3.0.4
 requests>=2.25.0
 
-# 可选：Windows .doc 文件支持
-# pip install pywin32
-
 # 开发依赖
-# pip install pytest pytest-cov
+# pytest>=7.0
+# pytest-cov>=4.0

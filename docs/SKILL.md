@@ -1,13 +1,13 @@
 ---
 name: stele-companion
 description: |
-  碑帖学习伴侣 v1.4。碑文字典对照 + 标注排版工具，支持多字典彩色对照、简繁转换、横版/竖版HTML输出、A4打印优化、自动获取权威碑帖原文。触发词：
+  碑帖学习伴侣 v2.0。碑文字典对照 + 标注排版工具，支持多字典彩色对照、简繁转换、横版/竖版HTML输出、A4打印优化、自动获取权威碑帖原文。触发词：
   碑文标注、碑帖学习、字典对照、字-标号对照、简繁转换、碑文排版、横版输出、竖版输出、
   标注碑文、碑文字典、学习书法、碑刻对照、多字典对照、碑文打印版、打印临摹、碑帖临摹、字帖打印。
 compatibility: Python 3.8+, python-docx, chardet, requests
 ---
 
-# 碑帖学习伴侣 stele-companion v1.5
+# 碑帖学习伴侣 stele-companion v2.0
 
 合并自 stele-annotator (v4.2) × stele-vertical-layout (v1.1)
 
@@ -41,7 +41,7 @@ compatibility: Python 3.8+, python-docx, chardet, requests
 ### 推荐用法：`all` 一步完成
 
 ```bash
-python stele_companion.py all 肥致碑.doc \
+stele-companion all 肥致碑.doc \
     --dict 张迁碑_dict.json \
     --output-horizontal 肥致碑_横版.html \
     --output-vertical 肥致碑_竖版.html \
@@ -53,7 +53,7 @@ python stele_companion.py all 肥致碑.doc \
 ### 第一步：建字典
 
 ```bash
-python stele_companion.py build-dict 张迁碑.docx \
+stele-companion build-dict 张迁碑.docx \
     -o zhangqian_dict.json \
     --start-marker "君讳迁"
 ```
@@ -61,7 +61,7 @@ python stele_companion.py build-dict 张迁碑.docx \
 ### 第二步：标注文本
 
 ```bash
-python stele_companion.py annotate 肥致碑.doc \
+stele-companion annotate 肥致碑.doc \
     --dict zhangqian_dict.json \
     -o annotated.json
 ```
@@ -70,14 +70,14 @@ python stele_companion.py annotate 肥致碑.doc \
 
 ```bash
 # 横版（现代阅读顺序，A4纵向）
-python stele_companion.py render \
+stele-companion render \
     --annotated annotated.json \
     --format horizontal \
     --font-size medium \
     -o 肥致碑_横版.html
 
 # 竖版（古文阅读顺序，A4横向）
-python stele_companion.py render \
+stele-companion render \
     --annotated annotated.json \
     --format vertical \
     --font-size medium \
@@ -142,7 +142,7 @@ python stele_companion.py render \
 多个字典用逗号分隔，自动分配不同颜色：
 
 ```bash
-python stele_companion.py all 肥致碑.doc \
+stele-companion all 肥致碑.doc \
     --dict 张迁碑_dict.json,鲜于璜碑_dict.json \
     --output-horizontal 肥致碑_多字典.html
 ```
@@ -168,13 +168,13 @@ python stele_companion.py all 肥致碑.doc \
 
 ```bash
 # 自动获取权威原文（推荐）
-python stele_companion.py all 肥致碑.doc \
+stele-companion all 肥致碑.doc \
     --dict 张迁碑_dict.json \
     --fetch \
     --output-horizontal 肥致碑_横版.html
 
 # 指定数据源
-python stele_companion.py all 肥致碑.doc \
+stele-companion all 肥致碑.doc \
     --dict 张迁碑_dict.json \
     --fetch --source wikisource \
     --output-horizontal 肥致碑_横版.html
@@ -314,7 +314,7 @@ python stele_companion.py all 肥致碑.doc \
 启用 `--convert` 后，简体字可匹配繁体字典，繁体字可匹配简体字典：
 
 ```bash
-python stele_companion.py all 肥致碑.doc \
+stele-companion all 肥致碑.doc \
     --dict 张迁碑_dict.json \
     --convert \
     -o 肥致碑_标注版.html

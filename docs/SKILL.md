@@ -415,10 +415,25 @@ stele-companion all 肥致碑.txt \
 
 ```
 stele-companion/
-├── SKILL.md                    # 本文档
-├── requirements.txt            # Python 依赖
-└── scripts/
-    └── stele_companion.py      # 统一入口脚本（v1.0）
+├── README.md                   # 项目说明
+├── LICENSE                     # MIT 许可证
+├── pyproject.toml              # 包配置（pip 安装入口）
+├── requirements.txt            # 依赖列表
+├── .gitignore
+├── docs/
+│   └── SKILL.md               # 本文档（AI 技能说明）
+├── stele_companion/            # 源代码包
+│   ├── __init__.py            # 包入口
+│   ├── cli.py                 # 命令行入口
+│   ├── core.py                # 核心逻辑（字典构建、标注）
+│   ├── io.py                  # 文件读写
+│   ├── network.py             # 网络获取碑帖原文
+│   ├── render.py              # HTML 渲染
+│   └── utils.py               # 工具函数和常量
+└── tests/                      # 测试文件
+    ├── __init__.py
+    ├── test_integration.py
+    └── fixtures/              # 测试数据
 ```
 
 ---
@@ -523,6 +538,15 @@ pip install pywin32    # Windows .doc
 ---
 
 ## 版本历史
+
+### v2.0.0（2026-04-04）
+- **[重大更新]** 重构为标准 Python 包结构（pyproject.toml + pip 安装）
+- **[功能完整]** 合并 stele-companion (v4.2) + stele-vertical-layout (v1.1) 所有功能
+- **[安装方式]** 支持 `pip install stele-companion` 全局安装
+- **[命令入口]** 统一为 `stele-companion` 命令行工具
+- **[代码重构]** 模块化拆分：core.py, render.py, network.py, io.py, utils.py
+- **[测试覆盖]** 添加集成测试 tests/test_integration.py
+- **[文档优化]** SKILL.md 移至 docs/ 目录，README.md 简化
 
 ### v1.5（2026-03-26）
 - **[重要修复]** 修复 VARIANT_MAP 简繁映射表中重复键定义问题，合并所有多义字映射
